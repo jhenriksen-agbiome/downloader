@@ -1,6 +1,7 @@
 import aiohttp
 import aiofiles
 import json
+import os
 import pytest
 
 from unittest import mock
@@ -22,6 +23,10 @@ async def test_download_and_call_nucleotide(event_loop, monkeypatch, mocker, fak
     mocker.patch('os.makedirs')
 
     await coroutines.download_and_call(fake_dl_job, 'fake://entrez.url', 'fake://callback_url', event_loop)
+
+    os.makedirs.assert_called_once_with('123456', exist_ok=True)
+    aiofiles.open.assert_called_once_with('123456/abcde.gbk', 'wb')
+    assert fake_file._buffer.getvalue() == b'This is not the sequence you are looking for'
 
     expected_params = {
         'tool': 'antiSMASH downloader',
@@ -58,6 +63,10 @@ async def test_download_and_call_protein(event_loop, monkeypatch, mocker, fake_c
     mocker.patch('os.makedirs')
 
     await coroutines.download_and_call(fake_dl_job, 'fake://entrez.url', 'fake://callback_url', event_loop)
+
+    os.makedirs.assert_called_once_with('123456', exist_ok=True)
+    aiofiles.open.assert_called_once_with('123456/abcde.fa', 'wb')
+    assert fake_file._buffer.getvalue() == b'This is not the sequence you are looking for'
 
     expected_params = {
         'tool': 'antiSMASH downloader',
