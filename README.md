@@ -3,7 +3,7 @@ A really simple NCBI sequence downloader microservice
 
 A simple microservice to handle downlading sequence files from NCBI Entrez.
 
-This is more an attempt to learn concurrency in Python 3.5 than a real functional service.
+This is an attempt to learn concurrency in Python 3.5 next to providing a useable microservice.
 
 License
 -------

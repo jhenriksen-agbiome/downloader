@@ -1,0 +1,6 @@
+pytest
+coverage
+pytest-cov
+pytest-asyncio
+pytest-aiohttp
+pytest-mock
